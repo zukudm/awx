@@ -1,6 +1,5 @@
 - name: Install docker stuff
   hosts: "{{ host }}"
-  tasks:
 
   -roles:
 
