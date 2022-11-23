@@ -2,14 +2,15 @@
   hosts: "{{ host }}"
 
   roles:
+    - role:  gantsign.minikube
 
-    - role: gantsign.antigen
-      users:
-        - username: vagrant
-          antigen_libraries:
-            - name: oh-my-zsh
-          antigen_bundles:
-            # Oh My Zsh Minikube plugin
-            - name: minikube
+    # - role: gantsign.antigen
+    #   users:
+    #     - username: vagrant
+    #       antigen_libraries:
+    #         - name: oh-my-zsh
+    #       antigen_bundles:
+    #         # Oh My Zsh Minikube plugin
+    #         - name: minikube
 
   
