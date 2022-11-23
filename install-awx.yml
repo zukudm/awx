@@ -1,0 +1,17 @@
+- name: Install docker stuff
+  hosts: "{{ host }}"
+  tasks:
+
+  -roles:
+    - role: gantsign.minikube
+
+    - role: gantsign.antigen
+      users:
+        - username: vagraNT
+          antigen_libraries:
+            - name: oh-my-zsh
+          antigen_bundles:
+            # Oh My Zsh Minikube plugin
+            - name: minikube
+
+  
