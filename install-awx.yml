@@ -3,11 +3,10 @@
   tasks:
 
   -roles:
-    - role: gantsign.minikube
 
     - role: gantsign.antigen
       users:
-        - username: vagraNT
+        - username: vagrant
           antigen_libraries:
             - name: oh-my-zsh
           antigen_bundles:
