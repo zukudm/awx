@@ -1,4 +1,4 @@
----
+- name: Install minikube
   hosts: "{{ host }}"
 
   roles:
