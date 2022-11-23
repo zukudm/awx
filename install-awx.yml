@@ -1,7 +1,7 @@
-- name: Install docker stuff
+  name: Install 
   hosts: "{{ host }}"
 
-  -roles:
+  roles:
 
     - role: gantsign.antigen
       users:
