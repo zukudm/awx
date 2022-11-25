@@ -13,8 +13,8 @@
       minikube start --install-addons=true
       minikube status
       minikube cluster-info
-    when: "module.start_minikube == true"
     
+
 
 
     # - role: gantsign.antigen
