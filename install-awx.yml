@@ -4,6 +4,19 @@
   roles:
     - role:  gantsign.minikube
 
+  tasks:
+
+  - name: Start minikube instance
+    register: minikube_info
+    shell: |
+      minikube delete
+      minikube start --install-addons=true
+      minikube status
+      minikube cluster-info
+    when: "module.start_minikube == true"
+    
+
+
     # - role: gantsign.antigen
     #   users:
     #     - username: vagrant
