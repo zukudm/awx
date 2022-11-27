@@ -4,7 +4,7 @@ awx_operator_version: 1.1.0
 
 awx_operator_git_link:  https://github.com/ansible/awx-operator.git
 awx_operator_git_name: awx
-awx: ansible-awx
+awxnamespace: ansible-awx
 docker_group: docker
 awx_config_file: ansible-awx.yml
 awx_demo_config_file: awx-demo.yml

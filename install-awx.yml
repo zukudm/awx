@@ -75,6 +75,7 @@
 
 
   - name: Enable service minikube
+    become: yes
     service:
       name: minikube.service
       enabled: yes
