@@ -61,9 +61,10 @@
       replace: "name: {{ namespace }}"
 
   - name: Running AWX
-    shell:
-      cmd: kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
-      
+    shell: |
+      kubectl config set-context --current --namespace="{{ namespace }}"
+      kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
+
 
 
 
