@@ -1,5 +1,5 @@
 ---
 roles:
   - gantsign.minikube
-  - githubixx.kubectl
+  
   
