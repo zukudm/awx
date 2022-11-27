@@ -28,11 +28,12 @@
 
     
 
-  # - name: Start minikube instance
-  #   register: minikube_info
-  #   shell: |
-  #     minikube start --install-addons=true
-  #     minikube status
+  - name: Start minikube instance
+    register: minikube_info
+    shell: |
+      minikube delete
+      minikube start --install-addons=true
+      minikube status
     
   - name: Git checkout
     ansible.builtin.git:
