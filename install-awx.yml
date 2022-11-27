@@ -31,7 +31,7 @@
   - name: "Making deploy for AWX"
     ansible.builtin.command: make deploy
     args:
-      chdir: "{{ awx_operator_git_name }}"
+      chdir: "{{ awx_operator_git_name }}/"
     environment:
          NAMESPACE: "{{ namespace }}"
 
