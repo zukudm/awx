@@ -1,5 +1,7 @@
 - name: Install minikube
   hosts: "{{ host }}"
+  vars_files: 
+    - vars/vars.yml
 
   roles:
     - role:  gantsign.minikube
@@ -13,16 +15,21 @@
       minikube start --install-addons=true
       minikube status
     
+  - name: Git checkout
+    ansible.builtin.git:
+      repo: '{{ awx_operator_git_link }}'
+      dest: "{{ pathfinder_git_name }}/"
+      version: "{{ awx_version }}"
 
+  - name: "Making deploy for AWX"
+    ansible.builtin.command: make deploy
+    args:
+      chdir: "{{ pathfinder_git_name }}"
+    environment:
+         NAMESPACE: "{{ namespace }}"
 
-
-    # - role: gantsign.antigen
-    #   users:
-    #     - username: vagrant
-    #       antigen_libraries:
-    #         - name: oh-my-zsh
-    #       antigen_bundles:
-    #         # Oh My Zsh Minikube plugin
-    #         - name: minikube
-
-  
+  - name: "Cluster current status"
+    ansible.builtin.command:  kubectl get pods -n "{{ namespace }}"
+    
+      
+    
