@@ -15,9 +15,10 @@
         - make
 
   - name: Install kubectl
+    become: yes
     shell: 
       cmd: snap install kubectl --classic
-      
+
 
   - name: Add Anisble user to the docker group
     ansible.builtin.user:
