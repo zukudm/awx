@@ -28,11 +28,11 @@
 
     
 
-  # - name: Start minikube instance
-  #   register: minikube_info
-  #   shell: |
-  #     minikube start --install-addons=true
-  #     minikube status
+  - name: Start minikube instance
+    register: minikube_info
+    shell: |
+      minikube start --install-addons=true
+      minikube status
     
   - name: Git checkout
     ansible.builtin.git:
@@ -41,12 +41,12 @@
       version: "{{ awx_operator_version }}"
       force: yes
 
-  # - name: "Making deploy for AWX"
-  #   ansible.builtin.command: make deploy
-  #   args:
-  #     chdir: "{{ awx_operator_git_name }}/"
-  #   environment:
-  #        NAMESPACE: "{{ namespace }}"
+  - name: "Making deploy for AWX"
+    ansible.builtin.command: make deploy
+    args:
+      chdir: "{{ awx_operator_git_name }}/"
+    environment:
+         NAMESPACE: "{{ awxnamespace }}"
 
   - name: Rename file 
     ansible.builtin.copy:
@@ -58,14 +58,31 @@
     replace:
       path: "{{ awx_operator_git_name }}/{{awx_config_file}}"
       regexp: '(name:\s)(.*)$'
-      replace: "name: {{ namespace }}"
+      replace: "name: {{ awxnamespace }}"
 
   - name: Running AWX
     shell: |
-      kubectl config set-context --current --namespace="{{ namespace }}"
+      kubectl config set-context --current --namespace="{{ awxnamespace }}"
       kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
 
+  - name: Creating service for minikube
+    become: yes
+    template: 
+      src: templates/minikube.service.j2
+      dest: /etc/systemd/system/minikube.service
+    notify: 
+      - reload systemctl
 
+
+  - name: Enable service minikube
+    service:
+      name: minikube.service
+      enabled: yes
+
+
+  handlers:
+    - name: reload systemctl
+      command: systemctl daemon-reload
 
 
       

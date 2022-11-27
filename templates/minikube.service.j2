@@ -1,0 +1,15 @@
+[Unit]
+Description=Minikube server
+
+
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bin/minikube start
+User={{ansible_user}}
+
+
+
+
+[Install]
+WantedBy=multi-user.target
