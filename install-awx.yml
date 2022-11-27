@@ -41,15 +41,25 @@
       version: "{{ awx_operator_version }}"
       force: yes
 
-  - name: "Making deploy for AWX"
-    ansible.builtin.command: make deploy
-    args:
-      chdir: "{{ awx_operator_git_name }}/"
-    environment:
-         NAMESPACE: "{{ namespace }}"
+  # - name: "Making deploy for AWX"
+  #   ansible.builtin.command: make deploy
+  #   args:
+  #     chdir: "{{ awx_operator_git_name }}/"
+  #   environment:
+  #        NAMESPACE: "{{ namespace }}"
 
-  - name: "Cluster current status"
-    ansible.builtin.command:  kubectl get pods -n "{{ namespace }}"
+  - name: Rename file 
+    ansible.builtin.copy:
+      remote_src: true
+      src: "{{ awx_demo_config_file }}"
+      dst: "{{ awx_config_file }}"
+      
+  - name: "Change configuration for {{awx_config_file}}"
+    ansible.builtin.lineinfile:
+      path: "{{ awx_operator_git_name }}/{{awx_config_file}}"
+      regexp: '^name:'
+      line: "name: {{ namespace }}"
+
 
       
     

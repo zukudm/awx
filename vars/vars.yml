@@ -6,6 +6,9 @@ awx_operator_git_link:  https://github.com/ansible/awx-operator.git
 awx_operator_git_name: awx
 namespace: ansible-awx
 docker_group: docker
+awx_config_file: ansible-awx.yml
+awx_demo_config_file: awx-demo.yml
+
 
 
 
