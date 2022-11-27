@@ -5,7 +5,7 @@ awx_version: 21.9.0
 awx_operator_git_link:  https://github.com/ansible/awx-operator.git
 awx_operator_git_name: awx
 namespace: ansible-awx
-docker_group: docker_group
+docker_group: docker
 
 
 
