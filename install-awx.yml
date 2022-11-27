@@ -11,9 +11,9 @@
   - name: Add Anisble user to the docker group
     ansible.builtin.user:
       name: "{{ ansible_user }}"
-      group: "{{ docker_group }}"
+      groups: "{{ docker_group }}"
       append: yes
-      
+
     
 
   - name: Start minikube instance
