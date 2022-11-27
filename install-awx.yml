@@ -57,7 +57,7 @@
   - name: "Change configuration for {{awx_config_file}}"
     replace:
       path: "{{ awx_operator_git_name }}/{{awx_config_file}}"
-      regexp: 'name:'
+      regexp: 'name:*'
       replace: "name: {{ namespace }}"
 
 
