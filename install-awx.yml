@@ -51,8 +51,8 @@
   - name: Rename file 
     ansible.builtin.copy:
       remote_src: true
-      src: "{{ awx_demo_config_file }}"
-      dest: "{{ awx_config_file }}"
+      src: "{{ awx_operator_git_name }}/{{ awx_demo_config_file }}"
+      dest: "{{ awx_operator_git_name }}/{{ awx_config_file }}"
 
   - name: "Change configuration for {{awx_config_file}}"
     ansible.builtin.lineinfile:
