@@ -1,6 +1,6 @@
 ---
 
-awx_version: 21.9.0
+awx_operator_version: 1.1.0
 
 awx_operator_git_link:  https://github.com/ansible/awx-operator.git
 awx_operator_git_name: awx

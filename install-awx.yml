@@ -26,7 +26,7 @@
     ansible.builtin.git:
       repo: '{{ awx_operator_git_link }}'
       dest: "{{ awx_operator_git_name }}/"
-      version: "{{ awx_version }}"
+      version: "{{ awx_operator_version }}"
 
   - name: "Making deploy for AWX"
     ansible.builtin.command: make deploy
