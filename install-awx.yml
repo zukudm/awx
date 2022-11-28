@@ -66,6 +66,12 @@
 #       kubectl config set-context --current --namespace="{{ awxnamespace }}"
 #       kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
 
+    - name: Get user admin password
+      shell: kubectl get secret ansible-awx-admin-password -o jsonpath="{.data.password}" | base64 --decode; echo
+        
+
+
+
     - name: Creating service for minikube
       become: yes
       template: 
