@@ -1,0 +1,22 @@
+[Unit]
+Description=Minikube portforward
+After=minikube.service
+
+
+[Service]
+Type=simple
+[Unit]
+Description=Minikube portforward
+After=minikube.service
+
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sleep 20
+ExecStart=nohup /snap/bin/kubectl port-forward service/ansible-awx-service --address 0.0.0.0 10445:80 --namespace=ansible-awx
+User={{ansible_user}}
+
+
+
+[Install]
+WantedBy=multi-user.target
