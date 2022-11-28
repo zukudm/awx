@@ -42,49 +42,49 @@
       version: "{{ awx_operator_version }}"
       force: yes
 
-  # - name: "Making deploy for AWX"
-  #   ansible.builtin.command: make deploy
-  #   args:
-  #     chdir: "{{ awx_operator_git_name }}/"
-  #   environment:
-  #        NAMESPACE: "{{ awxnamespace }}"
+  - name: "Making deploy for AWX"
+    ansible.builtin.command: make deploy
+    args:
+      chdir: "{{ awx_operator_git_name }}/"
+    environment:
+         NAMESPACE: "{{ awxnamespace }}"
 
-  # - name: Rename file 
-  #   ansible.builtin.copy:
-  #     remote_src: true
-  #     src: "{{ awx_operator_git_name }}/{{ awx_demo_config_file }}"
-  #     dest: "{{ awx_operator_git_name }}/{{ awx_config_file }}"
+  - name: Rename file 
+    ansible.builtin.copy:
+      remote_src: true
+      src: "{{ awx_operator_git_name }}/{{ awx_demo_config_file }}"
+      dest: "{{ awx_operator_git_name }}/{{ awx_config_file }}"
 
-  # - name: "Change configuration for {{awx_config_file}}"
-  #   replace:
-  #     path: "{{ awx_operator_git_name }}/{{awx_config_file}}"
-  #     regexp: '(name:\s)(.*)$'
-  #     replace: "name: {{ awxnamespace }}"
+  - name: "Change configuration for {{awx_config_file}}"
+    replace:
+      path: "{{ awx_operator_git_name }}/{{awx_config_file}}"
+      regexp: '(name:\s)(.*)$'
+      replace: "name: {{ awxnamespace }}"
 
-  # - name: Running AWX
-  #   shell: |
-  #     kubectl config set-context --current --namespace="{{ awxnamespace }}"
-  #     kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
+  - name: Running AWX
+    shell: |
+      kubectl config set-context --current --namespace="{{ awxnamespace }}"
+      kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
 
-  # - name: Creating service for minikube
-  #   become: yes
-  #   template: 
-  #     src: templates/minikube.service.j2
-  #     dest: /etc/systemd/system/minikube.service
-  #   notify: 
-  #     - reload systemctl
-
-
-  # - name: Enable service minikube
-  #   become: yes
-  #   service:
-  #     name: minikube.service
-  #     enabled: yes
+  - name: Creating service for minikube
+    become: yes
+    template: 
+      src: templates/minikube.service.j2
+      dest: /etc/systemd/system/minikube.service
+    notify: 
+      - reload systemctl
 
 
-  # handlers:
-  #   - name: reload systemctl
-  #     command: systemctl daemon-reload
+  - name: Enable service minikube
+    become: yes
+    service:
+      name: minikube.service
+      enabled: yes
+
+
+  handlers:
+    - name: reload systemctl
+      command: systemctl daemon-reload
 
 
       
