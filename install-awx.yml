@@ -68,6 +68,8 @@
 
     - name: Get user admin password
       shell: kubectl get secret ansible-awx-admin-password -o jsonpath="{.data.password}" | base64 --decode; echo
+      register: admin_password
+
         
 
 
@@ -103,7 +105,9 @@
         enabled: yes
         state: started
 
-
+    - name: Print admin password
+      debug: 
+        msg: "Log in with username: admin and password: {{admin_password}}"
 
 
   handlers:
