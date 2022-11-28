@@ -107,7 +107,7 @@
 
     - name: Print admin password
       debug: 
-        msg: "Log in with username: admin and password: {{admin_password}}"
+        msg: "Log in with username: admin and password: {{admin_password.stdout}}"
 
 
   handlers:
