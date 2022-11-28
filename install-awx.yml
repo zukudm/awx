@@ -6,7 +6,7 @@
 #   roles:
 #     - role:  gantsign.minikube
 
-#   tasks:
+  tasks:
   
 #   - name: install make
 #     become: yes
@@ -96,7 +96,7 @@
         name: minikubefwd.service
         enabled: yes
         state: started
-        
+
 
 
 
