@@ -3,9 +3,15 @@
 
   tasks:
 
-  - name: wait for pods to come up
-    shell: kubectl get pods --namespace ansible-awx -o json
-    register: kubectl_get_pods
-    until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
-    retries: 2
-    delay: 2
+  # - name: wait for pods to come up
+  #   shell: kubectl get pods --namespace ansible-awx -o json
+  #   register: kubectl_get_pods
+  #   until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
+  #   retries: 2
+  #   delay: 2
+
+    - name: Wait for control-plane pods become ready
+      shell: "kubectl wait --namespace=ansible-awx --timeout=600s"
+      register: control_plane_pods_ready
+
+    - debug: var=control_plane_pods_ready.stdout_lines
