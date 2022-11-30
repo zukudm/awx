@@ -17,6 +17,7 @@
         - '" Ready "  in nodes.stdout'      
       retries: 6
       delay: 2
+      ignore_errors: yes
 
     - debug: var=nodes.stdout
 
