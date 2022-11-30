@@ -11,8 +11,8 @@
   #   delay: 2
 
     - name: Wait till the Object is created
-      community.kubernetes.k8s_info:
-        kind: Pod
+      kubernetes.core.k8s_info:
+        kind: AWX
         wait: true
         name: pod-not-yet-created
         namespace: ansible-awx
