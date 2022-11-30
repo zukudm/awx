@@ -19,7 +19,8 @@
       delay: 2
       ignore_errors: yes
 
-    - debug: var=nodes.stdout
+    - debug: 
+        msg: "{{ nodes }}"
 
     - name: Wait for control-plane pods become ready
       shell: kubectl wait --namespace=ansible-awx --for=condition=Ready pods  --timeout=600s
