@@ -11,11 +11,11 @@
   #   delay: 2
 
     - name: Wait for control-plane pods become ready
-      shell: "kubectl wait --namespace=ansible-awx --for=condition=Ready pods  --timeout=600s"
+      shell: kubectl wait --namespace=ansible-awx --for=condition=Ready pods  --timeout=600s
       register: control_plane_pods_ready
 
     - debug: var=control_plane_pods_ready.stdout_lines
-    
+
 
     - name: wait for pods to come up
       shell: kubectl get pods -o json --namespace=ansible-awx
