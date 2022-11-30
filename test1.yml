@@ -10,11 +10,8 @@
   #   retries: 2
   #   delay: 2
 
-    - name: Wait till the Object is created
-      kubernetes.core.k8s_info:
-        kind: AWX
-        wait: true
-        name: pod-not-yet-created
-        namespace: ansible-awx
-        wait_sleep: 10
-        wait_timeout: 50
+    - name: Wait for control-plane pods become ready
+      shell: "kubectl wait --namespace=ansible-awx --for=condition=Ready pods  --timeout=600s"
+      register: control_plane_pods_ready
+
+    - debug: var=control_plane_pods_ready.stdout_lines
