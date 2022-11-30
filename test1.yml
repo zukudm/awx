@@ -12,8 +12,7 @@
 
 
     - name: Wait for nodes to be ready
-      shell:
-        cmd:  "/usr/local/bin/minikube kubectl -- get pod --namespace=ansible-awx"
+      shell: "/usr/local/bin/minikube kubectl -- get pod --namespace=ansible-awx"
       register: nodes2
       remote_user: vagrant
       sudo: true
