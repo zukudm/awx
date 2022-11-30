@@ -11,7 +11,7 @@
   #   delay: 2
 
     - name: Wait for nodes to be ready
-      shell: /snap/bin/kubectl get pod --namespace=ansible-awx
+      command: /snap/bin/kubectl get pod --namespace=ansible-awx
       register: nodes
       until:      
         - '" Ready "  in nodes.stdout'      
