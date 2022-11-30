@@ -11,7 +11,7 @@
   #   delay: 2
 
     - name: Wait for nodes to be ready
-      shell: "kubectl get pod --namespace=ansible-awx"
+      shell: "minikube kubectl -- get pod --namespace=ansible-awx"
       register: nodes
       until:      
         - '" Ready "  in nodes.stdout'      
