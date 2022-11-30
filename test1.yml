@@ -10,6 +10,11 @@
   #   retries: 2
   #   delay: 2
 
+
+    - name: Wait for nodes to be ready
+      command: minikube kubectl -- get pod --namespace=ansible-awx
+      register: nodes2
+
     - name: Wait for nodes to be ready
       command: minikube kubectl -- get pod --namespace=ansible-awx
       register: nodes
@@ -20,7 +25,7 @@
       ignore_errors: yes
 
     - debug: 
-        msg: "{{ nodes }}"
+        msg: "{{ nodes2 }}"
 
     - name: Wait for control-plane pods become ready
       shell: kubectl wait --namespace=ansible-awx --for=condition=Ready pods  --timeout=600s
