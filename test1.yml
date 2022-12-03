@@ -11,17 +11,13 @@
   #   delay: 2
 
 
-    - name: Wait for nodes to be ready
-      command: /usr/local/bin/minikube kubectl -- get pod --namespace=ansible-awx
-      register: nodes2
     
-      
 
     - name: Wait for nodes to be ready
       command: minikube kubectl -- get pod --namespace=ansible-awx
       register: nodes
       until:      
-        - '" Ready "  in nodes.stdout'      
+        - '" Running "  in nodes.stdout'      
       retries: 6
       delay: 2
       ignore_errors: yes
@@ -29,11 +25,11 @@
     - debug: 
         msg: "{{ nodes2 }}"
 
-    - name: Wait for control-plane pods become ready
-      shell: kubectl wait --namespace=ansible-awx --for=condition=Ready pods  --timeout=600s
-      register: control_plane_pods_ready
+    # - name: Wait for control-plane pods become ready
+    #   shell: kubectl wait --namespace=ansible-awx --for=condition=Running  --timeout=600s
+    #   register: control_plane_pods_ready
 
-    - debug: var=control_plane_pods_ready.stdout_lines
+    # - debug: var=control_plane_pods_ready.stdout_lines
 
 
     - name: wait for pods to come up
@@ -41,8 +37,4 @@
       register: kubectl_get_pods
       until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
 
-    - name: Wait for control-plane pods become ready
-      shell: "kubectl wait --namespace=ansible-awx --for=condition=Ready pods  --timeout=600s"
-      register: control_plane_pods_ready
-
-    - debug: var=control_plane_pods_ready.stdout_lines
+    
