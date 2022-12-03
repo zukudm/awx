@@ -61,4 +61,4 @@
           - label=unknown
         namespace: ansible-awx
         wait_sleep: 5
-        wait_timeout: 15
+        wait_timeout: 120
