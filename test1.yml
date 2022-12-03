@@ -38,9 +38,11 @@
       until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
 
     - name: install pip3
+      become: yes
       apt: name=python3-pip state=present 
 
     - name: install pre-requisites
+      become: yes
       pip:
         name:
           - openshift
