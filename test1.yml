@@ -58,6 +58,7 @@
           - name=ansible-awx
           - part-of=ansible-awx
           - control-plane=controller-manager
+          - label=unknown
         namespace: ansible-awx
         wait_sleep: 5
         wait_timeout: 15
