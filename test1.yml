@@ -37,4 +37,14 @@
       register: kubectl_get_pods
       until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
 
-    
+    - name: Wait for k0s node to come up
+      kubernetes.core.k8s_info:
+        kind: Pod
+        wait: true
+        label_selectors:
+          - name=ansible-awx
+          - part-of=ansible-awx
+          - control-plane=controller-manager
+        namespace: ansible-awx
+        wait_sleep: 5
+        wait_timeout: 15
