@@ -66,12 +66,27 @@
       kubectl config set-context --current --namespace="{{ awxnamespace }}"
       kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
 
-  - name: wait for pods to come up
-    shell: kubectl get pods -o json --namespace=ansible-awx
+  - name: Waiting for Opearot to start
+    shell: kubectl get pods -o json --namespace=ansible-awx --selector control-plane=controller-manager
     register: kubectl_get_pods
     until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
-    retries: 7
+    retries: 3
     delay: 60
+
+  - name: Waiting for DB to start
+    shell: kubectl get pods -o json --namespace=ansible-awx --selector app.kubernetes.io/component=database
+    register: kubectl_get_pods
+    until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
+    retries: 3
+    delay: 60
+
+  - name: Waiting for AWX to start
+    shell: kubectl get pods -o json --namespace=ansible-awx --selector app.kubernetes.io/name=ansible-awx
+    register: kubectl_get_pods
+    until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
+    retries: 5
+    delay: 60
+
 
 
   - name: Get user admin password
