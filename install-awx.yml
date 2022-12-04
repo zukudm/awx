@@ -34,12 +34,35 @@
       minikube delete
       minikube start --install-addons=true
       minikube status
+
+  - name: Version to checkout Init
+    set_fact: checkout_version="{{ awx_operator_version }}"
+      
+  - block: 
+
+      - name: Check latest version
+        uri:
+          url: "{{ awx_githubapi_url }}"
+          return_content: true
+        register: awx_latest
+
+      - name: Define version to checkout
+        set_fact: checkout_version="{{ awx_latest.json.tag_name }}"
+
+          
+        when: awx_operator_version == 'latest'
+
+      - name: Print latest checkout_version variable
+        debug:
+          msg: "{{ checkout_version }}" 
+
+
     
   - name: Git checkout
     ansible.builtin.git:
       repo: '{{ awx_operator_git_link }}'
       dest: "{{ awx_operator_git_name }}/"
-      version: "{{ awx_operator_version }}"
+      version: "{{ checkout_version }}"
       force: yes
 
   - name: "Making deploy for AWX"
@@ -66,7 +89,7 @@
       kubectl config set-context --current --namespace="{{ awxnamespace }}"
       kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
 
-  - name: Waiting for Opearot to start
+  - name: Waiting for Operator to start
     shell: kubectl get pods -o json --namespace=ansible-awx --selector control-plane=controller-manager
     register: kubectl_get_pods
     until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
