@@ -9,7 +9,7 @@
   pre_tasks:
   
   - name: Install docker
-    include_tasks: "playbooks/install_docker.yml"
+    include_tasks: "playbooks/install-docker.yml"
 
 
   tasks:
