@@ -6,10 +6,13 @@
   roles:
     - role:  gantsign.minikube
 
-  tasks:
-
+  pre_tasks:
+  
   - name: Install docker
     include_tasks: "playbooks/install_docker.yml"
+
+
+  tasks:
   
   - name: install make
     become: yes
