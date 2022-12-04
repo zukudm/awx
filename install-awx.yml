@@ -4,7 +4,7 @@
     - vars/vars.yml
 
   roles:
-    - { role: geerlingguy.docker, become: yes }
+    - { role: geerlingguy.docker, become: yes, meta: reset_connection }
     - { role: gantsign.minikube, become: yes }
 
   vars:
