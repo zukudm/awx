@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$script = <<-SCRIPT
+echo Ansible provisioning...
+ apt update -y
+ apt install -y software-properties-common
+ add-apt-repository --yes --update ppa:ansible/ansible
+ apt install -y ansible
+ apt-get -y install make
+ 
+SCRIPT
+
+Vagrant.configure("2") do |config|
+
+if Vagrant.has_plugin?("vagrant-vbguest") then
+          config.vbguest.auto_update = false
+end
+
+  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.define "AWX"
+  config.vm.network "private_network", ip: "192.168.33.10" 
+  config.vm.network "forwarded_port", guest: 10445, host: 10445, protocol: "tcp"
+  config.vm.hostname = "AWX"
+  config.vm.provision "shell", inline: $script
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 6144
+    v.cpus = 2
+  end
+end
