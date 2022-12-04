@@ -1,0 +1,67 @@
+- name: Finish setup for AWX when AWX stucked
+  hosts: "{{ host }}"
+  vars_files: 
+    - vars/vars.yml
+
+  tasks:
+  
+  
+  - name: Waiting for AWX to start
+    shell: kubectl get pods -o json --namespace=ansible-awx --selector app.kubernetes.io/name=ansible-awx
+    register: kubectl_get_pods
+    until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
+    retries: 2
+    delay: 30
+
+
+
+  - name: Get user admin password
+    shell: kubectl get secret ansible-awx-admin-password -o jsonpath="{.data.password}" | base64 --decode; echo
+    register: admin_password
+
+
+
+  - name: Creating service for minikube
+    become: yes
+    template: 
+      src: templates/minikube.service.j2
+      dest: /etc/systemd/system/minikube.service
+    notify: 
+      - reload systemctl
+
+
+  - name: Enable service minikube
+    become: yes
+    service:
+      name: minikube.service
+      enabled: yes
+
+  - name: Creating service for minikube forward
+    become: yes
+    template: 
+      src: templates/minikubefwd.service.j2
+      dest: /etc/systemd/system/minikubefwd.service
+    notify: 
+      - reload systemctl
+
+
+  - name: Enable service minikube fwd
+    become: yes
+    service:
+      name: minikubefwd.service
+      enabled: yes
+      state: started
+
+  - name: Print admin password
+    debug: 
+      msg: "Login with username: admin and password: {{admin_password.stdout}} using url http://127.0.0.1:10445"
+
+
+  handlers:
+  - name: reload systemctl
+    become: yes
+    command: systemctl daemon-reload
+
+
+      
+    

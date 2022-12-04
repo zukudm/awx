@@ -1,7 +1,7 @@
 ---
 
-awx_operator_version: 1.1.0
-
+awx_operator_version: latest
+hostname: localhost
 awx_operator_git_link:  https://github.com/ansible/awx-operator.git
 awx_githubapi_url: https://api.github.com/repos/ansible/awx-operator/releases/latest
 awx_operator_git_name: awx
