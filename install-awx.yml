@@ -4,8 +4,8 @@
     - vars/vars.yml
 
   roles:
-    - role:  geerlingguy.docker
-    - role:  gantsign.minikube
+    - role:  { geerlingguy.docker, become: yes }
+    - role:  { gantsign.minikube, become: yes }
 
   vars:
     docker_edition: 'ce'
