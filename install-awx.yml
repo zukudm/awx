@@ -20,7 +20,7 @@
     docker_restart_handler_state: restarted
     docker_install_compose: true
     docker_users:
-      - "{{ ansible_user }}"
+      - "{{ my_user }}"
 
   pre_tasks:
   
@@ -55,7 +55,7 @@
 
   - name: Add Anisble user to the docker group
     ansible.builtin.user:
-      name: "{{ ansible_user }}"
+      name: "{{ my_user }}"
       groups: "{{ docker_group }}"
       append: yes
 
