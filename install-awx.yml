@@ -4,12 +4,39 @@
     - vars/vars.yml
 
   roles:
+    - role:  geerlingguy.docker
     - role:  gantsign.minikube
+
+  vars:
+    docker_edition: 'ce'
+    docker_packages:
+    - "docker-{{ docker_edition }}"
+    - "docker-{{ docker_edition }}-cli"
+    - "docker-{{ docker_edition }}-rootless-extras"
+    docker_packages_state: present
+    docker_service_manage: true
+    docker_service_state: started
+    docker_service_enabled: true
+    docker_restart_handler_state: restarted
+    docker_install_compose: true
+    docker_users:
+      - "{{ ansible_user }}"
 
   pre_tasks:
   
-  - name: Install docker
-    include_tasks: "playbooks/install-docker.yml"
+  - name: apt update 2
+    become: yes
+    apt:
+      update_cache: yes
+
+  - name: install prerequisites for Docker repository
+    become: yes
+    ansible.builtin.apt:
+      pkg:
+        - ca-certificates
+        - curl
+        - gnupg2
+        - lsb-release
 
 
   tasks:
