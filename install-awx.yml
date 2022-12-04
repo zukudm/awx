@@ -29,8 +29,6 @@
       groups: "{{ docker_group }}"
       append: yes
 
-  - name: Reset ssh connection
-    meta: reset_connection  
 
   - name: Start minikube instance
     register: minikube_info
