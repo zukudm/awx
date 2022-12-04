@@ -1,5 +1,7 @@
 ---
 roles:
   - gantsign.minikube
+  - geerlingguy.docker
+  
   
   
