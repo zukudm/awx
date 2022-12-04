@@ -1,7 +1,5 @@
 - name: Install docker stuff using external role
-  vars_files: 
-    - vars/vars.yml
-
+  
   pre_tasks:
 
   - name: apt update 2
