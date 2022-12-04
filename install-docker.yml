@@ -1,5 +1,8 @@
 - name: Install docker stuff
   hosts: "{{ host }}"
+  vars_files: 
+    - vars/vars.yml
+
   tasks:
 
   - name: apt update 2
