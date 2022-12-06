@@ -44,7 +44,7 @@ ansible-playbook install-awx.yml
 
 In case task "Check latest version" fails, run *ansible-playbook install-awx.yml* once again
 <details>
-![Screenshot_1](images/check_lates_version_error.png)
+![Screenshot1](images/check_latest_version_error.png)
  </details>
  
 
