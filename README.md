@@ -13,7 +13,9 @@ Follow install instructions for your OS
 ### Setup VM for AWX Ansible
 
 Make new folder *Vagrant*
-Download vagrantfile from: and copy it to the just created folder *Vagrant* folder  
+Download vagrantfile from: https://raw.githubusercontent.com/zukudm/awx/main/vagrant/Vagrantfile
+
+Copy that file to the just created *Vagrant* folder  
 Run cmd.exe via run command
 ```bash
 cd c:\vagrant
