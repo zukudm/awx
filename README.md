@@ -2,18 +2,18 @@
 This manual describes how to install AWX ansible on windows or Linux OS
 # Install AWX Ansible using VirtualBox and Vagrant
 ## Install VirtualBox
-Download installation for your OS from [here] (https://www.virtualbox.org/wiki/Downloads)
+Download installation for your OS from [here](https://www.virtualbox.org/wiki/Downloads)
 
 Choose your OS from binary platform packages.
   
 ## Install Vagrant
-Download installation frpm [here] (https://developer.hashicorp.com/vagrant/downloads)
+Download installation from [here](https://developer.hashicorp.com/vagrant/downloads)
 Follow install instructions for your OS
 
 ### Setup VM for AWX Ansible
 
 Make new folder *Vagrant*
-Download vagrantfile from: https://raw.githubusercontent.com/zukudm/awx/main/vagrant/Vagrantfile
+Download Vagrantfile from: [here](https://raw.githubusercontent.com/zukudm/awx/main/vagrant/Vagrantfile)
 
 Copy that file to the just created *Vagrant* folder  
 Run cmd.exe via run command
