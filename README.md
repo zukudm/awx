@@ -40,19 +40,49 @@ Inside VM run
 cd awx
 ansible-playbook install-awx.yml
 ```
-#### Possible error:
+#### Possible errors:
 
-In case task "Check latest version" fails, run *ansible-playbook install-awx.yml* once again
-<details>
-![Screenshot1](images/check_latest_version_error.png)
- </details>
+In case task "Check latest version" fails, run *ansible-playbook install-awx.yml* once again after "some time"
+ <details>
  
+   <summary> Error example </summary>
+ <img src="images/check_latest_version_error.png">
+  </details>
+  
+One of the longest task is *Waiting for AWX to start*
+<details>
+ <summary> Log example </summary>
+ <img src="images/waiting_for_awx_services.png">
+</details>
 
-In case install-awx get any errors wait for some time (it could take several hours) run  
+In case that task fails, you have to wait (???)
+<details>
+ <summary> Error example </summary>
+ <img src="images/waiting_for_awx_error.png">
+</details>
+
+After some time we can check the AWX status using command
 ```bash
 kubectl get pod --namespace=ansible-awx
 ```
-Whell all 3 applications (Awx-perator, ansible-awx*) will be in ready state, you will be able to finish setup with
+All statuses must be in *RUnning* state
+
+In case if one of them is not
+
+<details>
+ <summary> Error example </summary>
+ <img src="images/faulty_status.png">
+</details>
+
+We have to wait more o run the script *ansible-playbook install-awx.yml" again
+
+When all 3 applications (Awx-perator, ansible-awx*) will be in *running* state
+<details>
+ <summary> Error example </summary>
+ <img src="images/good_status.png">
+</details>
+
+ You will be able to finish setup with
 (It won't ryn if one of them status will be smth like Init:Imagexxxxxx)
 ```bash
 ansible-playbook finish_install-awx.yml
