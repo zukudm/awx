@@ -40,6 +40,13 @@ Inside VM run
 cd awx
 ansible-playbook install-awx.yml
 ```
+#### Possible error:
+
+In case task "Check latest version" fails, run *ansible-playbook install-awx.yml* once again
+<details>
+![Screenshot_1](images/check_lates_version_error.png)
+ </details>
+ 
 
 In case install-awx get any errors wait for some time (it could take several hours) run  
 ```bash
