@@ -23,12 +23,6 @@
       cmd: snap install kubectl --classic
 
 
-  - name: Add Anisble user to the docker group
-    ansible.builtin.user:
-      name: "{{ ansible_user_id }}"
-      groups: "{{ docker_group }}"
-      append: yes
-
 
   - name: Start minikube instance
     register: minikube_info
