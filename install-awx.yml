@@ -34,7 +34,7 @@
     register: minikube_info
     shell: |
       minikube delete
-      minikube start --install-addons=true
+      minikube start --addons=ingress
       minikube status
 
   - name: Version to checkout Init
@@ -86,17 +86,19 @@
       regexp: '(name:\s)(.*)$'
       replace: "name: {{ awxnamespace }}"
 
-  - name: Running AWX
-    shell: |
-      kubectl config set-context --current --namespace="{{ awxnamespace }}"
-      kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
-
   - name: Waiting for Operator to start
     shell: kubectl get pods -o json --namespace=ansible-awx --selector control-plane=controller-manager
     register: kubectl_get_pods
     until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
     retries: 3
     delay: 90
+
+  - name: Running AWX
+    shell: |
+      kubectl config set-context --current --namespace="{{ awxnamespace }}"
+      kubectl apply -f "{{ awx_operator_git_name }}/{{ awx_config_file }}"
+
+  
 
   - name: Waiting for DB to start
     shell: kubectl get pods -o json --namespace=ansible-awx --selector app.kubernetes.io/component=database
