@@ -28,7 +28,7 @@
     register: minikube_info
     shell: |
       minikube delete
-      minikube start --addons=ingress
+      minikube start 
       minikube status
 
   - name: Version to checkout Init
