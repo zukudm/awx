@@ -1,6 +1,21 @@
 # How to install AWX Ansible
-This manual describes how to install AWX ansible on windows or Linux OS
+This manual describes how to install AWX Ansible on virtual vm inside Windows or macOS
+
+Also, it's possible to install AWX Ansible on different Linux distribution.
+
 # Install AWX Ansible using VirtualBox and Vagrant
+## Minimum requirements 
+
+### Hardware
+6 GB RAM (You can try with 4 GB after changing Vagrantfile)
+
+15 GB HDD
+
+1 CPU
+### Software
+Vagrant
+VirtualBox
+
 ## Install VirtualBox
 Download the installation for your OS from [here](https://www.virtualbox.org/wiki/Downloads)
 
@@ -25,7 +40,8 @@ After the VM setup finishes work run
 ```bash
 vagrant ssh
 ```
-Inside VM run commands:
+
+### Run AWX Ansible
 
 ```bash
 git clone https://github.com/zukudm/awx.git
@@ -37,11 +53,18 @@ Log out from VM (exit or Ctrl-d) then login again
 ```bash
 vagrant ssh
 ```
+
+In case Linux installation, use must use your own ssh username to connect
+
 Inside VM run
 ```bash
 cd awx
 ansible-playbook install-awx.yml
 ```
+In case of success you will gate admin password and how to connect to the AWX ansible 
+
+http://127.0.0.1:10445
+
 #### Possible problems:
 
 In case the task "Check latest version" fails, run *ansible-playbook install-awx.yml* once again after "some time"
@@ -90,4 +113,29 @@ When all 3 applications (Awx-operator, ansible-awx*) will be in *running* state
 ansible-playbook finish_install-awx.yml
 ```
 You won't need to finish setup if *ansible-playbook install-awx.yml* finish without errors
+
+# Install AWX Ansible on linux
+<details>
+
+## Minimum requirements 
+
+### Hardware
+6 GB RAM (You can try with 4 GB)
+
+15 GB HDD
+
+1 CPU
+### Software
+Ubuntu< Debian, Fedora, Centos and possibly others Linux
+
+## Install ansible
+
+
+Follow instructions 
+https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html
+
+Then follow Install AWX Ansible using VirtualBox and Vagrant step *Run AWX Ansible*
+</details>
+
+
 
