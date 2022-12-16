@@ -1,0 +1,20 @@
+- name: Prepare ENV for Ansible AWX
+  hosts: "{{ host }}"
+  become: yes
+  vars_files: 
+    - vars/vars.yml
+
+  tasks:
+
+  - name: Add a new user for Ansible
+    user:
+      name: "{{ working_user }}"
+      state: present
+
+  - name: Add authorized key
+    authorized_key:
+      user: "{{ working_user }}"
+      state: present
+      key: "{{ key }}"
+
+      
