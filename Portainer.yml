@@ -5,7 +5,8 @@
     - vars/vars.yml
 
   roles:
-    role: docker-portainer
+    role: elnebuloso.docker-portainer
     
+
 
       

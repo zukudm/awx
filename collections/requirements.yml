@@ -3,8 +3,7 @@ collections:
   - name: community.docker
   - name: community.general
   - name: kubernetes.core
-  - name: elnebuloso.docker-portainer
-  
+
   
   
 
