@@ -1,0 +1,11 @@
+- name: Install Docker GUI``
+  hosts: "{{ host }}"
+  become: yes
+  vars_files: 
+    - vars/vars.yml
+
+  roles:
+    role: docker-portainer
+    
+
+      
