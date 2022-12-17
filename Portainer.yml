@@ -1,6 +1,5 @@
 - name: Install Docker GUI``
   hosts: "{{ host }}"
-  become: yes
   vars_files: 
     - vars/vars.yml
 
@@ -18,7 +17,7 @@
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
           - portainer_data:/data
-          
+
 
 
 
