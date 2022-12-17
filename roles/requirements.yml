@@ -2,7 +2,6 @@
 roles:
   - gantsign.minikube
   - geerlingguy.docker
-  - elnebuloso.docker-portainer
   
   
   
