@@ -6,6 +6,9 @@
 
   tasks:
 
+  - name: Install k3s
+    include_tasks: "playbooks/k3s.yml"
+
   - name: install prerequisites
     become: yes
     ansible.builtin.apt:
@@ -48,3 +51,19 @@
       dest: "{{ awx_git_helper_dir }}/"
       version: "{{ awx_git_helper_version }}"
       force: yes  
+
+  - name: Make AWX operator deploy
+    ansible.builtin.command: make deploy
+    args:
+      chdir: "{{ awx_operator_git_name }}/"
+    environment:
+         NAMESPACE: "{{ NAMESPACE }}"
+
+  - name: Waiting for Operator to start
+    shell: kubectl get pods -o json --namespace=awx --selector control-plane=controller-manager
+    register: kubectl_get_pods
+    until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
+    retries: 3
+    delay: 90
+
+  
