@@ -1,0 +1,39 @@
+- name: Install minikube
+  hosts: "{{ host }}"
+  vars_files: 
+    - vars/vars.yml
+
+
+  tasks:
+
+  - block: 
+
+      - name: Check latest version
+        uri:
+          url: "{{ awx_githubapi_url }}"
+          return_content: true
+        register: awx_latest
+
+      - name: Define version to checkout
+        set_fact: checkout_version="{{ awx_latest.json.tag_name }}"
+
+          
+        when: awx_operator_version == 'latest'
+
+      - name: Print latest checkout_version variable
+        debug:
+          msg: "{{ checkout_version }}" 
+
+  - name: Git checkout
+    ansible.builtin.git:
+      repo: '{{ awx_operator_git_link }}'
+      dest: "{{ awx_operator_git_name }}/"
+      version: "{{ checkout_version }}"
+      force: yes
+
+  - name: Git checkout
+    ansible.builtin.git:
+      repo: '{{ awx_git_helper_url }}'
+      dest: "{{ awx_git_helper_dir }}/"
+      version: "{{ awx_git_helper_version }}"
+      force: yes  

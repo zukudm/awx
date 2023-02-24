@@ -5,6 +5,9 @@ host: localhost
 working_user: ansible
 awx_operator_git_link:  https://github.com/ansible/awx-operator.git
 awx_githubapi_url: https://api.github.com/repos/ansible/awx-operator/releases/latest
+awx_git_helper_url: https://github.com/kurokobo/awx-on-k3s.git
+awx_git_helper_dir: awx-on-k3s
+awx_git_helper_version: "1.2.0"
 awx_operator_git_name: awx
 awxnamespace: ansible-awx
 docker_group: docker

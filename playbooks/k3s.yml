@@ -1,0 +1,48 @@
+ 
+  - name: Download k3s install script.
+    get_url:
+      url: https://get.k3s.io
+      dest: /root/get_k3s.sh
+      mode: 0755
+      owner: root
+      group: root
+    become: yes
+
+  - name: Launch k3s install script.
+    command: /root/get_k3s.sh --write-kubeconfig-mode 644
+    args:
+      creates: /usr/local/bin/k3s
+    become: true
+
+  - name: Install kubernetes repo
+    copy:
+      src: kubernetes.repo
+      dest: /etc/yum.repos.d
+      owner: root
+      group: root
+      mode: u=rw,go=r
+    become: true
+
+  - name: Add Google official GPG key
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+
+  - name: Add Kubernetes Repository
+    apt_repository:
+      repo: deb http://apt.kubernetes.io/ kubernetes-xenial main 
+      state: present
+      filename: kubernetes
+      mode: 0600
+
+  - name: Installing Kubernetes Cluster Packages.
+    apt: 
+      name:
+        - kubectl
+        - python3-pip
+      state: present
+  - name: Install openshift python module.
+    pip:
+      name: openshift
+    become: true
+
