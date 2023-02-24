@@ -6,6 +6,17 @@
 
   tasks:
 
+  - name: install prerequisites
+    become: yes
+    ansible.builtin.apt:
+      pkg:
+        - ca-certificates
+        - curl
+        - make
+        - got
+
+        
+
   - block: 
 
       - name: Check latest version
