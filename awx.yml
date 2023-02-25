@@ -101,6 +101,13 @@
       owner: 1000
       group: 0
 
+  - name: Deploy AWX
+    ansible.builtin.command: kubectl apply -k "{{ awx_git_helper_dir }}/base"
+    environment:
+      NAMESPACE: "{{ NAMESPACE }}"
+      
+
+
 
 
 
