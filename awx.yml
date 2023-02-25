@@ -6,8 +6,8 @@
 
   tasks:
 
-  - name: Install k3s
-    include_tasks: "playbooks/k3s.yml"
+  # - name: Install k3s
+  #   include_tasks: "playbooks/k3s.yml"
 
   - name: install prerequisites
     become: yes

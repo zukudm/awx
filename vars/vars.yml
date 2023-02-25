@@ -3,7 +3,7 @@
 awx_operator_version: latest
 host: localhost
 working_user: ansible
-AWX_HOST: "awx"
+AWX_HOST: awx
 NAMESPACE: awx
 awx_operator_git_link:  https://github.com/ansible/awx-operator.git
 awx_githubapi_url: https://api.github.com/repos/ansible/awx-operator/releases/latest
