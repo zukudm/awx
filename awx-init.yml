@@ -1,0 +1,56 @@
+- hosts: localhost
+  gather_facts: no
+
+  vars:
+    awx_host: "http://awx"
+    awx_username: "admin"
+    # awx_password: "password"
+    inventory_name: "myinventory"
+    host_name: "myhost"
+    host_vars:
+      ansible_host: "192.168.0.1"
+      ansible_user: "root"
+
+  pre_tasks:
+    - pause:
+        prompt: "Input your user password"
+        echo: no
+      register: awx_password
+
+  tasks:
+    - name: Create new inventory
+      uri:
+        url: "{{ awx_host }}/api/v2/inventories/"
+        user: "{{ awx_username }}"
+        password: "{{ awx_password }}"
+        method: POST
+        body_format: json
+        headers:
+          Content-Type: "application/json"
+        body:
+          name: "{{ inventory_name }}"
+        status_code: 201
+        register: new_inventory
+
+    - name: Parse new inventory ID
+      set_fact:
+        inventory_id: "{{ new_inventory.json.id }}"
+
+    - name: Create new host
+      uri:
+        url: "{{ awx_host }}/api/v2/inventories/{{ inventory_id }}/hosts/"
+        user: "{{ awx_username }}"
+        password: "{{ awx_password }}"
+        method: POST
+        body_format: json
+        headers:
+          Content-Type: "application/json"
+        body:
+          name: "{{ host_name }}"
+          variables: "{{ host_vars | to_json }}"
+        status_code: 201
+        register: new_host
+
+    - name: Print new host details
+      debug:
+        var: new_host.json
