@@ -78,7 +78,7 @@
     ansible.builtin.lineinfile:
       path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
       regexp: '*- password=*'
-      line: "{{ ansible_indentation }}- password={{ awx_password }}"
+      line: "- password={{ awx_password }}"
       backrefs: yes
 
 
