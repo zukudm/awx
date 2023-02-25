@@ -14,15 +14,6 @@
       creates: /usr/local/bin/k3s
     become: true
 
-  # - name: Install kubernetes repo
-  #   copy:
-  #     src: kubernetes.repo
-  #     dest: /etc/yum.repos.d
-  #     owner: root
-  #     group: root
-  #     mode: u=rw,go=r
-  #   become: true
-
   - name: Add Google official GPG key
     apt_key:
       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -41,9 +32,3 @@
         - kubectl
         # - python3-pip
       state: present
-
-  # - name: Install openshift python module.
-  #   pip:
-  #     name: openshift
-  #   become: true
-
