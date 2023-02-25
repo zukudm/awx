@@ -37,8 +37,8 @@
         inventory_id: "{{ new_inventory.json.id }}"
 
     - name: Create new host
-      uri:
-        ansible.builtin.uri: "{{ awx_host }}/api/v2/inventories/{{ inventory_id }}/hosts/"
+      ansible.builtin.uri:
+        url: "{{ awx_host }}/api/v2/inventories/{{ inventory_id }}/hosts/"
         user: "{{ awx_username }}"
         password: "{{ awx_password }}"
         method: POST
