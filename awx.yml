@@ -67,12 +67,18 @@
   #   delay: 90
 
 
-  - name: Make self-signed certificate
-    ansible.builtin.command: openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -out ./base/tls.crt -keyout ./base/tls.key -subj "/CN={{AWX_HOST}}/O={{AWX_HOST}}" -addext "subjectAltName = DNS:{{AWX_HOST}}"
-    args:
-      chdir: "{{ awx_git_helper_dir }}/"
-    environment:
-         NAMESPACE: "{{ NAMESPACE }}"
+  # - name: Make self-signed certificate
+  #   ansible.builtin.command: openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -out ./base/tls.crt -keyout ./base/tls.key -subj "/CN={{AWX_HOST}}/O={{AWX_HOST}}" -addext "subjectAltName = DNS:{{AWX_HOST}}"
+  #   args:
+  #     chdir: "{{ awx_git_helper_dir }}/"
+  #   environment:
+  #        NAMESPACE: "{{ NAMESPACE }}"
+
+  - name: 
+    ansible.builtin.lineinfile:
+      path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
+      regexp: '^password='
+      line: "password={{ awx_password }}"
 
 
 
