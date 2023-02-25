@@ -68,7 +68,7 @@
 
 
   - name: Make self-signed certificate
-    ansible.builtin.command: openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -out ./base/tls.crt -keyout ./base/tls.key -subj "/CN=${{AWX_HOST}}/O=${{AWX_HOST}}" -addext "subjectAltName = DNS:${{AWX_HOST}}"
+    ansible.builtin.command: openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -out ./base/tls.crt -keyout ./base/tls.key -subj "/CN={{AWX_HOST}}/O={{AWX_HOST}}" -addext "subjectAltName = DNS:{{AWX_HOST}}"
     args:
       chdir: "{{ awx_git_helper_dir }}/"
     environment:
