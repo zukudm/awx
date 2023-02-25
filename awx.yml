@@ -74,19 +74,27 @@
   #   environment:
   #        NAMESPACE: "{{ NAMESPACE }}"
 
-  - name: 
-    ansible.builtin.lineinfile:
-      path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
-      regexp: '     - password=*'
-      line: "     - password={{ awx_password }}"
-      backrefs: yes
+  # - name: 
+  #   ansible.builtin.lineinfile:
+  #     path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
+  #     regexp: '     - password=*'
+  #     line: "     - password={{ awx_password }}"
+  #     backrefs: yes
 
-  - name: 
-    ansible.builtin.lineinfile:
-      path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
-      regexp: '      - password=*'
-      line: "      - password={{ awx_password }}"
-      backrefs: yes
+  # - name: 
+  #   ansible.builtin.lineinfile:
+  #     path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
+  #     regexp: '      - password=*'
+  #     line: "      - password={{ awx_password }}"
+  #     backrefs: yes
+
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: /data/postgres-13
+      state: directory
+      mode: '0755'
+
+      
 
 
 
