@@ -19,7 +19,7 @@
 
   tasks:
     - name: Create new inventory
-      ansible.builtin.uri:
+      ansible.legacy.uri:
         url: "{{ awx_host }}/api/v2/inventories/"
         user: "{{ awx_username }}"
         password: "{{ awx_password }}"
