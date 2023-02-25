@@ -6,8 +6,8 @@
 
   tasks:
 
-  # - name: Install k3s
-  #   include_tasks: "playbooks/k3s.yml"
+  - name: Install k3s
+    include_tasks: "playbooks/k3s.yml"
 
   - name: install prerequisites
     become: yes
@@ -52,48 +52,48 @@
       version: "{{ awx_git_helper_version }}"
       force: yes  
 
-  # - name: Make AWX operator deploy
-  #   ansible.builtin.command: make deploy
-  #   args:
-  #     chdir: "{{ awx_operator_git_name }}/"
-  #   environment:
-  #        NAMESPACE: "{{ NAMESPACE }}"
+  - name: Make AWX operator deploy
+    ansible.builtin.command: make deploy
+    args:
+      chdir: "{{ awx_operator_git_name }}/"
+    environment:
+         NAMESPACE: "{{ NAMESPACE }}"
 
-  # - name: Waiting for Operator to start
-  #   shell: kubectl get pods -o json --namespace=awx --selector control-plane=controller-manager
-  #   register: kubectl_get_pods
-  #   until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
-  #   retries: 3
-  #   delay: 90
+  - name: Waiting for Operator to start
+    shell: kubectl get pods -o json --namespace=awx --selector control-plane=controller-manager
+    register: kubectl_get_pods
+    until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == ["Running"]
+    retries: 3
+    delay: 90
 
 
-  # - name: Make self-signed certificate
-  #   ansible.builtin.command: openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -out ./base/tls.crt -keyout ./base/tls.key -subj "/CN={{AWX_HOST}}/O={{AWX_HOST}}" -addext "subjectAltName = DNS:{{AWX_HOST}}"
-  #   args:
-  #     chdir: "{{ awx_git_helper_dir }}/"
-  #   environment:
-  #        NAMESPACE: "{{ NAMESPACE }}"
+  - name: Make self-signed certificate
+    ansible.builtin.command: openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -out ./base/tls.crt -keyout ./base/tls.key -subj "/CN={{AWX_HOST}}/O={{AWX_HOST}}" -addext "subjectAltName = DNS:{{AWX_HOST}}"
+    args:
+      chdir: "{{ awx_git_helper_dir }}/"
+    environment:
+         NAMESPACE: "{{ NAMESPACE }}"
 
-  # - name: Set password
-  #   ansible.builtin.lineinfile:
-  #     path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
-  #     regexp: '     - password=*'
-  #     line: "     - password={{ awx_password }}"
-  #     backrefs: yes
+  - name: Set password
+    ansible.builtin.lineinfile:
+      path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
+      regexp: '     - password=*'
+      line: "     - password={{ awx_password }}"
+      backrefs: yes
 
-  # - name: Set password
-  #   ansible.builtin.lineinfile:
-  #     path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
-  #     regexp: '      - password=*'
-  #     line: "      - password={{ awx_password }}"
-  #     backrefs: yes
+  - name: Set password
+    ansible.builtin.lineinfile:
+      path: "{{ awx_git_helper_dir }}/base/kustomization.yaml"
+      regexp: '      - password=*'
+      line: "      - password={{ awx_password }}"
+      backrefs: yes
 
-  # - name: Set hostname
-  #   ansible.builtin.lineinfile:
-  #     path: "{{ awx_git_helper_dir }}/base/awx.yaml"
-  #     regexp: '  hostname: awx.example.com'
-  #     line: "  hostname: {{ AWX_HOST }}"
-  #     backrefs: yes
+  - name: Set hostname
+    ansible.builtin.lineinfile:
+      path: "{{ awx_git_helper_dir }}/base/awx.yaml"
+      regexp: '  hostname: awx.example.com'
+      line: "  hostname: {{ AWX_HOST }}"
+      backrefs: yes
 
 
   - name: Create a directory if it does not exist
