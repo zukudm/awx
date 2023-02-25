@@ -19,7 +19,7 @@
 
   tasks:
     - name: Create new inventory
-      uri:
+      ansible.builtin.uri:
         url: "{{ awx_host }}/api/v2/inventories/"
         user: "{{ awx_username }}"
         password: "{{ awx_password }}"
@@ -38,7 +38,7 @@
 
     - name: Create new host
       uri:
-        url: "{{ awx_host }}/api/v2/inventories/{{ inventory_id }}/hosts/"
+        ansible.builtin.uri: "{{ awx_host }}/api/v2/inventories/{{ inventory_id }}/hosts/"
         user: "{{ awx_username }}"
         password: "{{ awx_password }}"
         method: POST
