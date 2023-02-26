@@ -5,7 +5,7 @@ host: localhost
 working_user: ansible
 AWX_HOST: awx
 NAMESPACE: awx
-awx_password: "Q6AWwDaCRJ2CLgRdORfAJOlgjCD1ASoR"
+awx_password: "xxxxxxxxxxxxxxxxxx"
 awx_operator_git_link:  https://github.com/ansible/awx-operator.git
 awx_githubapi_url: https://api.github.com/repos/ansible/awx-operator/releases/latest
 awx_git_helper_url: https://github.com/kurokobo/awx-on-k3s.git
