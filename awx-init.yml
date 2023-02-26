@@ -31,7 +31,7 @@
         body:
           name: "{{ inventory_name }}"
         status_code: 201
-      return_content: true
+      # return_content: true
       register: new_inventory
 
     - name: Parse new inventory ID
