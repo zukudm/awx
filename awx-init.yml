@@ -18,6 +18,19 @@
       register: awx_password
 
   tasks:
+
+    - name: Check REST API credentials
+      uri:
+        url: "{{ awx_host }}/api/v2/me"
+        method: GET
+        validate_certs: false
+        user: "{{ awx_username }}"
+        password: "{{ awx_password }}"
+        return_content: true
+        force_basic_auth: true
+        status_code: 200
+
+
     - name: Create new inventory
       uri:
         url: "{{ awx_host }}/api/v2/inventories/"
