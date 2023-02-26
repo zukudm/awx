@@ -21,17 +21,17 @@
     - name: Create new inventory
       uri:
         url: "{{ awx_host }}/api/v2/inventories/"
-        # user: "{{ awx_username }}"
-        # password: "{{ awx_password }}"
-        # method: POST
-        # body_format: json
-        # headers:
-        #   Content-Type: "application/json"
-        # body:
-        #   name: "{{ inventory_name }}"
-        # status_code: 201
-        return_content: true
-        register: new_inventory
+        user: "{{ awx_username }}"
+        password: "{{ awx_password }}"
+        method: POST
+        body_format: json
+        headers:
+          Content-Type: "application/json"
+        body:
+          name: "{{ inventory_name }}"
+        status_code: 201
+      return_content: true
+      register: new_inventory
 
     - name: Parse new inventory ID
       set_fact:
@@ -50,7 +50,7 @@
           name: "{{ host_name }}"
           variables: "{{ host_vars | to_json }}"
         status_code: 201
-        register: new_host
+      register: new_host
 
     - name: Print new host details
       debug:
