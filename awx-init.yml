@@ -21,6 +21,7 @@
     - name: Create new inventory
       uri:
         url: "{{ awx_host }}/api/v2/inventories/"
+        force_basic_auth: true
         user: "{{ awx_username }}"
         password: "{{ awx_password }}"
         method: POST
@@ -30,7 +31,7 @@
         body:
           name: "{{ inventory_name }}"
         status_code: 201
-      # return_content: true
+      return_content: true
       register: new_inventory
 
     - name: Parse new inventory ID
