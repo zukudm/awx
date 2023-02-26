@@ -23,7 +23,7 @@
       uri:
         url: "{{ awx_host }}/api/v2/me"
         headers:
-      Authorization: "Basic {{ (awx_username + ':' + awx_password) | b64encode }}"
+          Authorization: "Basic {{ (awx_username + ':' + awx_password) | b64encode }}"
 
 
     - name: Create new inventory
