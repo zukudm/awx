@@ -19,17 +19,17 @@
 
   tasks:
     - name: Create new inventory
-      ansible.legacy.uri:
+      ansible.builtin.uri:
         url: "{{ awx_host }}/api/v2/inventories/"
-        user: "{{ awx_username }}"
-        password: "{{ awx_password }}"
-        method: POST
-        body_format: json
-        headers:
-          Content-Type: "application/json"
-        body:
-          name: "{{ inventory_name }}"
-        status_code: 201
+        # user: "{{ awx_username }}"
+        # password: "{{ awx_password }}"
+        # method: POST
+        # body_format: json
+        # headers:
+        #   Content-Type: "application/json"
+        # body:
+        #   name: "{{ inventory_name }}"
+        # status_code: 201
         register: new_inventory
 
     - name: Parse new inventory ID
